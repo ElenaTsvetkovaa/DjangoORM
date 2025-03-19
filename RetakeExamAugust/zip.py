@@ -47,7 +47,7 @@ def zip_current_level(exclude_list, zip_name="output.zip"):
 
 if __name__ == "__main__":
     # List of folders and files to be excluded
-    exclude_list = [".venv", ".idea", "templates", "zip.py", "db.sqlite3"]
+    exclude_list = [".venv", ".idea", "templates", "zip.py", "db.sqlite3", "__pycache__"]
 
     zip_current_level(exclude_list)
     print(f"Files and folders zipped into 'output.zip' excluding {exclude_list}")

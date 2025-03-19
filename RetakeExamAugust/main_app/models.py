@@ -5,6 +5,7 @@ from django.core.validators import  MinValueValidator, MaxValueValidator, \
 from django.db import models
 
 from main_app.choices import DragonBreath
+from main_app.managers import HouseManager
 from main_app.mixins import NameMixin, WinsMixin, ModifiedAtMixin
 
 
@@ -23,6 +24,10 @@ class House(NameMixin, WinsMixin, ModifiedAtMixin):
         null=True,
     )
 
+    objects = HouseManager()
+
+    def __str__(self):
+        return f"{self.name} - {self.castle}"
 
 class Dragon(NameMixin, WinsMixin, ModifiedAtMixin):
 

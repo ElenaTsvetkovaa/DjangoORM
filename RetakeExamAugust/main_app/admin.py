@@ -27,6 +27,7 @@ class QuestAdmin(admin.ModelAdmin):
 
     list_display = ['name', 'code', 'reward', 'start_time']
     list_filter = ['start_time', 'host__name']
+    search_fields = ['host__name']
     ordering = ['start_time']
     readonly_fields = ['modified_at']
 
