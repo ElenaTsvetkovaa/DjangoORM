@@ -82,15 +82,14 @@ def get_latest_match_info():
 def get_matches_by_tournament(tournament_name=None):
 
     if tournament_name is None:
-        return ''
+        return "No matches found."
 
     matches = Match.objects.filter(
         tournament__name=tournament_name
     ).order_by('-date_played')
 
     return '\n'.join([
-        f'Match played on: {m.date_played}, score: {m.score}, '
-        f'winner: {m.winner.full_name if m.winner else 'TBA'}'
+        f"Match played on: {m.date_played}, score: {m.score}, winner: {m.winner.full_name if m.winner else 'TBA'}"
         for m in matches
     ])
 
