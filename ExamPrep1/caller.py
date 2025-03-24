@@ -1,6 +1,6 @@
 import os
 import django
-from django.db.models import Q, Count
+
 
 # Set up Django
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "orm_skeleton.settings")
@@ -8,7 +8,7 @@ django.setup()
 
 from helpers import populate_model_with_data
 from main_app.models import Actor, Movie, Director
-
+from django.db.models import Q, Count, F
 
 
 def populate_db():
@@ -42,11 +42,12 @@ def get_directors(search_name=None, search_nationality=None):
 
 def get_top_director():
 
-    top_director = Director.objects.get_directors_by_movies_count().first()
+    director = Director.objects.get_directors_by_movies_count().first()
 
-    if not top_director:
-        return ''
-    return f"Top Director: {top_director.full_name}, movies: {top_director.movies_count}."
+    if not director:
+        return ""
+
+    return f"Top Director: {director.full_name}, movies: {director.movies_count}."
 
 
 def get_top_actor():
@@ -90,8 +91,15 @@ def get_top_rated_awarded_movie():
             f"rating: {movie.rating:.1f}. Starring actor: {movie.starring_actor.full_name if movie.starring_actor else 'N/A'}. "
             f"Cast: {', '.join([a.full_name for a in movie.actors.order_by('full_name')])}.")
 
-print(get_top_rated_awarded_movie())
 
+def increase_rating():
 
+    updated_movies_count = (Movie.objects.filter(is_classic=True, rating__lt=10.0)
+                            .update(rating=F('rating') + 0.1))
+
+    if updated_movies_count == 0:
+        return "No ratings increased."
+
+    return f"Rating increased for {updated_movies_count} movies."
 
 
