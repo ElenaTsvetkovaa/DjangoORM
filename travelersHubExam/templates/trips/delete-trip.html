@@ -1,0 +1,19 @@
+{% extends 'common/../common/base.html' %}
+{% block content %}
+
+            <!-- Delete Trip Form -->
+            <section id="edit">
+
+                <div class="form">
+                    <h2>Delete Trip</h2>
+                    <form class="edit-form" method="post" action="">
+                        {% csrf_token %}
+                        {{ form.as_div }}
+
+                        <button type="submit">Delete</button>
+                    </form>
+                </div>
+
+            </section>
+
+{% endblock %}
